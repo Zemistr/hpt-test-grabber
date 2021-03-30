@@ -6,5 +6,8 @@ namespace HPT;
 
 interface Output
 {
-    public function getJson(): string;
+
+	public function addData(StolenData $data): void;
+
+	public function getJson(): string;
 }

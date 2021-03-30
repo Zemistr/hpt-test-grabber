@@ -1,0 +1,33 @@
+{
+  "name": "zemistr/hpt-test-grabber",
+  "description": "Thief",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "zemistr",
+      "email": "zemistr@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "HPT\\": [
+        "src/"
+      ],
+      "Tests\\HPT\\": [
+        "tests/"
+      ]
+    }
+  },
+  "require": {
+    "ext-json": "*",
+    "symfony/browser-kit": "^5.2",
+    "nette/caching": "^2.5",
+    "symfony/http-client": "^5.2",
+    "symfony/css-selector": "^5.2"
+  },
+  "require-dev": {
+    "roave/security-advisories": "dev-latest",
+    "phpunit/phpunit": "^9"
+  }
+}

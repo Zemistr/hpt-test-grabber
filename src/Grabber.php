@@ -6,5 +6,9 @@ namespace HPT;
 
 interface Grabber
 {
-    public function getPrice(string $productId): float;
+
+	public function getProduct(string $keyword): StolenData;
+
+	/** @deprecated */
+	public function getPrice(string $productId): float;
 }

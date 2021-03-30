@@ -6,25 +6,26 @@ namespace HPT;
 
 class Dispatcher
 {
-    /** @var Grabber */
-    private $grabber;
 
-    /** @var Output */
-    private $output;
+	private Grabber $grabber;
+	private Output $output;
 
-    public function __construct(Grabber $grabber, Output $output)
-    {
-        $this->grabber = $grabber;
-        $this->output = $output;
-    }
+	public function __construct(Grabber $grabber, Output $output)
+	{
+		$this->grabber = $grabber;
+		$this->output = $output;
+	}
 
-    /**
-     * @return string JSON
-     */
-    public function run(): string
-    {
-        // code here
+	public function run(): string
+	{
+		while ($keyword = fgets(STDIN)) {
+			$keyword = trim($keyword);
 
-        return $this->output->getJson();
-    }
+			if ($keyword !== '') {
+				$this->output->addData($this->grabber->getProduct($keyword));
+			}
+		}
+
+		return $this->output->getJson();
+	}
 }

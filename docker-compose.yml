@@ -1,0 +1,8 @@
+version: "3.1"
+services:
+    php:
+      image: webdevops/php:7.4
+      container_name: php
+      working_dir: /app
+      volumes:
+        - .:/app

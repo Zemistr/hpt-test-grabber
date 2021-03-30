@@ -7,6 +7,9 @@ namespace HPT;
 class JsonOutputFormatter implements Output
 {
 
+	/**
+	 * @var array<string, null|int|float|string>
+	 */
 	private array $data = [];
 
 	public function addData(StolenData $data): void
@@ -14,6 +17,8 @@ class JsonOutputFormatter implements Output
 		$this->data[$data->getKeyword()] = [
 			'price' => $data->getPrice(),
 			'manufacturer_code' => $data->getManufacturerCode(),
+			'name' => $data->getName(),
+			'rating' => $data->getRating(),
 		];
 	}
 

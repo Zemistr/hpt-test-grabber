@@ -31,7 +31,7 @@ class CzcHttpGrabber implements Grabber
 		$results = $crawler->filter('#tiles .tile-link');
 
 		if ($results->count() === 0) {
-			return new StolenData($keyword, '', 0);
+			return new StolenData($keyword, null, null, null, null);
 		}
 
 		$link = $results->first()->link();
@@ -57,11 +57,25 @@ class CzcHttpGrabber implements Grabber
 
 		$filteredUselessInfo = array_filter($uselessInfo) + [''];
 		$manufacturerCode = (string) array_shift($filteredUselessInfo);
+		$manufacturerCode = $manufacturerCode === '' ? null : $manufacturerCode;
 
-		$priceText = $productPageCrawler->filter('#product-price-and-delivery-section .price-vatin')->text();
-		$price = (float) preg_replace('~\D+~', '', $priceText);
+		$priceElement = $productPageCrawler->filter('#product-price-and-delivery-section .price-vatin');
+		$price = null;
 
-		return new StolenData($keyword, $manufacturerCode, $price);
+		if ($priceElement->count() > 0) {
+			$price = (float) preg_replace('~\D+~', '', $priceElement->text());
+		}
+
+		$name = $productPageCrawler->filter('h1')->text();
+
+		$ratingElement = $productPageCrawler->filter('.rating__label');
+		$rating = null;
+
+		if ($ratingElement->count() > 0) {
+			$rating = (int) preg_replace('~\D+~', '', $ratingElement->text());
+		}
+
+		return new StolenData($keyword, $manufacturerCode, $price, $name, $rating);
 	}
 
 	public function getPrice(string $productId): float
